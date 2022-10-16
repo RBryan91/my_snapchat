@@ -33,6 +33,7 @@ const UselessTextInput = () => {
         
       />
       <TextInput
+        secureTextEntry={true} 
         name="password"
         value={password}
         style={styles.input}

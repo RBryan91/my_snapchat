@@ -6,6 +6,7 @@ import * as Permissions from 'expo-permissions';
 import * as ImagePicker from 'expo-image-picker';
 import { shareAsync } from 'expo-sharing';
 import * as MediaLibrary from 'expo-media-library';
+import axios from 'axios';
 
 const Index = () => 
 {
@@ -19,6 +20,17 @@ const Index = () =>
     const [hasCameraPermission, setHasCameraPermission] = useState();
     const [hasMediaLibraryPermission, setHasMediaLibraryPermission] = useState();
   
+     function affichelesUser() 
+    {
+     const configuration = {headers:{'token': "SdL6gt4G6neqPoZ3uf4Cv11T", Accept: "application/json"}}
+     const reponse =  axios.get('http://snapi.epitech.eu:8000/all',configuration)
+       .then(res =>
+      { 
+        let oui =  Object.values(res.data.data)
+        alert(oui.map((oui) => oui.email+"\n"));
+      })
+    } 
+
     function toggleCameraType() {
       setType(current => (current === CameraType.back ? CameraType.front : CameraType.back));
     }
@@ -62,13 +74,13 @@ const Index = () =>
           setPhoto(undefined);
         });
       };
-  
+      
       return (
         <SafeAreaView style={styles.container}>
           <Image style={styles.preview} source={{ uri: "data:image/jpg;base64," + photo.base64 }} />
           <Button title="Partager" onPress={sharePic} />
           {hasMediaLibraryPermission ? <Button title="Enregistrer" onPress={savePhoto} /> : undefined}
-          <Button title="Envoyer" onPress={"pio"} />
+          <Button title="Envoyer" onPress={affichelesUser} />
           <Button title="Retour" onPress={() => setPhoto(undefined)} />
         </SafeAreaView>
       );
@@ -94,7 +106,7 @@ const Index = () =>
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor:"black"}}>
        <Text onPress={retour} style={styles.textcam}>Retour</Text>
        <Image source={{ uri: image }} style={{ width:200, height:200 }}/>
-       <Text onPress={retour} style={styles.textcam}>Envoyé</Text>
+       <Text onPress={affichelesUser} style={styles.textcam}>Envoyé</Text>
       </View> 
       )}
     </View>
@@ -123,8 +135,8 @@ const styles = StyleSheet.create({  container: {
       flex: 1,
     }
  }); 
-
-export default Index;
+export default Index ;
+ 
 
 
 

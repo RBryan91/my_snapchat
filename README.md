@@ -2,8 +2,6 @@
 This is a snapchat clone made with Expo Go and React Native.
 The back-end is handled with a premade API (http://snapi.epitech.eu:8000)
 
-<img src="./img/home.png" alt="home screenshot" width="200">
-
 
 It is my first React Native application ever !
 
